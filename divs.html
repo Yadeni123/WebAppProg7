@@ -30,6 +30,8 @@
     <input type="text" id="inputText" placeholder="Enter item text">
 
     <button onclick="addEnd()">Add end</button>
+    <button onclick="addFront()">Add front</button>
+    <button onclick="removeEveryOther()">Remove</button>
 
     <div class="flex-container" id="targetContainer">
         <div class="divlist">First item</div>
@@ -40,14 +42,33 @@
     <script>
         function addEnd() {
             let inputValue = document.getElementById("inputText").value;
-
             let newDiv = document.createElement("div");
-
             newDiv.innerHTML = inputValue;
-
             newDiv.className = "divlist";
-
             document.getElementById("targetContainer").appendChild(newDiv);
+        }
+
+        function addFront() {
+            let inputValue = document.getElementById("inputText").value;
+            let newDiv = document.createElement("div");
+            newDiv.innerHTML = inputValue;
+            newDiv.className = "divlist";
+            
+            let container = document.getElementById("targetContainer");
+            container.insertBefore(newDiv, container.firstChild);
+        }
+
+        function removeEveryOther() {
+            let divListItems = document.getElementsByClassName("divlist");
+            let length = divListItems.length;
+
+            if (length > 0) {
+                for (let i = length - 1; i >= 0; i--) {
+                    if (i % 2 === 0) { // removes indices 0, 2, 4, etc.
+                        divListItems[i].remove();
+                    }
+                }
+            }
         }
     </script>
 
