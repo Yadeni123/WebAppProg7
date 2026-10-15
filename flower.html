@@ -57,14 +57,52 @@
         let score = 0;
         let locationsVisited = 0;
         let lastLocation = 0;
-        let poisonLocation = 19;
-        let roseLocation = 14;
-        let lilyLocations = [3, 25];
-        let daisyLocations = [2, 5, 11, 20, 21];
         let gameOver = false;
+
+        let poisonLocation = Math.floor(Math.random() * 36);
+        let roseLocation = Math.floor(Math.random() * 36);
+        
+        let lilyLocations = [
+            Math.floor(Math.random() * 36),
+            Math.floor(Math.random() * 36)
+        ];
+        
+        let daisyLocations = [
+            Math.floor(Math.random() * 36),
+            Math.floor(Math.random() * 36),
+            Math.floor(Math.random() * 36),
+            Math.floor(Math.random() * 36),
+            Math.floor(Math.random() * 36)
+        ];
 
         function check(position) {
             if (gameOver) return;
+
+            let directions = [-6, 6, -1, 1]; // Up, Down, Left, Right
+            let validMove = false;
+            let newRosePos;
+
+            while (!validMove) {
+                let randomDir = directions[Math.floor(Math.random() * directions.length)];
+                let tempPos = roseLocation + randomDir;
+
+                if (tempPos >= 0 && tempPos < 36) {
+                    if (randomDir === -1 && Math.floor(roseLocation / 6) !== Math.floor(tempPos / 6)) {
+                        continue;
+                    }
+                    if (randomDir === 1 && Math.floor(roseLocation / 6) !== Math.floor(tempPos / 6)) {
+                        continue;
+                    }
+                    newRosePos = tempPos;
+                    validMove = true;
+                }
+            }
+            roseLocation = newRosePos;
+
+            if (roseLocation === position) {
+                gameOver = true;
+                alert("The rose caught you! Game Over.");
+            }
 
             let imageElement = document.getElementById(ids[position]);
 
