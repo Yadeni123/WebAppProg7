@@ -4,83 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reflex Timing Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            text-align: center;
-            margin-top: 50px;
-        }
-        #targetArea {
-            width: 200px;
-            height: 200px;
-            background-color: gray;
-            margin: 30px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-    </style>
 </head>
-<body class="container">
+<body>
 
-    <h1>Reflex Timing Game</h1>
+    <h1>Yadeni reflexes</h1>
 
-    <p>Click the button or target as fast as you can when it lights up!</p>
-    
-    <button id="startButton" class="btn btn-primary mb-3" onclick="startGame()">Start Game</button>
-    
-    <p id="instructions">Press Start to begin.</p>
-    
-    <div id="targetArea" onclick="targetClicked()">Wait for it...</div>
-    
-    <p id="resultText"></p>
+    <div id="target">Your time</div>
+    <div id="counter">Count</div>
+
+    <button id="goButton">Go</button>
+    <button id="haltButton">Halt</button>
 
     <script>
-        let startTime;
-        let timeoutId;
-        let waitingForClick = false;
+        let haltTime = undefined;
 
-        function startGame() {
-            document.getElementById("resultText").innerText = "";
-            document.getElementById("instructions").innerText = "Get ready...";
-            document.getElementById("targetArea").style.backgroundColor = "gray";
-            document.getElementById("targetArea").innerText = "Wait for it...";
-            
-            waitingForClick = false;
-
-            let randomDelay = Math.floor(Math.random() * 3000) + 2000;
-
-            timeoutId = setTimeout(() => {
-                document.getElementById("targetArea").style.backgroundColor = "green";
-                document.getElementById("targetArea").innerText = "CLICK NOW!";
-                startTime = Date.now();
-                waitingForClick = true;
-                document.getElementById("instructions").innerText = "Go!";
-            }, randomDelay);
+        function recordTime() {
+            haltTime = Date.now();
+            console.log(haltTime);
         }
 
-        function targetClicked() {
-            if (!waitingForClick) {
-                clearTimeout(timeoutId);
-                document.getElementById("targetArea").style.backgroundColor = "red";
-                document.getElementById("targetArea").innerText = "Too Soon!";
-                document.getElementById("resultText").innerText = "You clicked too early! Penalty applied. Try again.";
-                waitingForClick = false;
-                return;
-            }
-
-            let endTime = Date.now();
-            let reactionTime = endTime - startTime;
-
-            document.getElementById("targetArea").style.backgroundColor = "blue";
-            document.getElementById("targetArea").innerText = reactionTime + " ms";
-            document.getElementById("resultText").innerText = "Your reflex time is " + reactionTime + " milliseconds!";
-            waitingForClick = false;
-        }
+        document.getElementById("haltButton").onclick = recordTime;
     </script>
+
 </body>
 </html>
