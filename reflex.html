@@ -10,7 +10,7 @@
     <h1>Yadeni reflexes</h1>
 
     <div id="target">Your time</div>
-    <div id="counter">Count</div>
+    <div id="countdown">Count</div>
 
     <button id="goButton">Go</button>
     <button id="haltButton">Halt</button>
@@ -24,6 +24,30 @@
         }
 
         document.getElementById("haltButton").onclick = recordTime;
+
+        function beginTime() {
+            haltTime = undefined;
+            document.getElementById("target").innerHTML = "Your time";
+
+            for (let i = 0; i <= 5; i++) {
+                setTimeout(() => {
+                    document.getElementById("countdown").innerHTML = i;
+                }, (5 - i) * 1000);
+            }
+
+            setTimeout(() => {
+                if (haltTime === undefined) {
+                    document.getElementById("target").innerHTML = "Not soon enough";
+                } else {
+                    let targetTime = Date.now();
+                    let diff = targetTime - targetTime; // or difference calculation
+                    let elapsed = targetTime - haltTime;
+                    document.getElementById("target").innerHTML = "Time was " + elapsed;
+                }
+            }, 5000);
+        }
+
+        document.getElementById("goButton").onclick = beginTime;
     </script>
 
 </body>
