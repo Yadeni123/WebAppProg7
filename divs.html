@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div List Builder</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            background-color: DodgerBlue;
+            gap: 10px;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        .flex-container > div {
+            background-color: #f1f1f1;
+            padding: 20px;
+            font-size: 30px;
+        }
+        .divlist {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Yadeni builds list with divs</h1>
+
+    <input type="text" id="inputText" placeholder="Enter item text">
+
+    <button onclick="addEnd()">Add end</button>
+
+    <div class="flex-container" id="targetContainer">
+        <div class="divlist">First item</div>
+        <div class="divlist">Second item</div>
+        <div class="divlist">Third item</div>
+    </div>
+
+    <script>
+        function addEnd() {
+            let inputValue = document.getElementById("inputText").value;
+
+            let newDiv = document.createElement("div");
+
+            newDiv.innerHTML = inputValue;
+
+            newDiv.className = "divlist";
+
+            document.getElementById("targetContainer").appendChild(newDiv);
+        }
+    </script>
+
+</body>
+</html>
